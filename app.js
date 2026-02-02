@@ -22,8 +22,13 @@ app.get('/', (req, res) =>{
     res.send('Subscription Tracker is running');
 });
 
-app.listen(PORT, async () => {
-    console.log(`Server is running on port ${PORT}`);
 
-    await connectToDatabase();
-})
+const startServer = async () => {
+    await connectToDatabase(); // connect first
+
+    app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+    });
+};
+
+startServer();
