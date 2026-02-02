@@ -11,7 +11,7 @@ const app = express();
 
 app.use(express.json()); //allows the app to handle json data sent in as requests
 app.use(express.urlencoded({ extended: false })); //allows the app to process the form data sent via html forms in a simple form
-app.use(express.cookieParser()); //reads cookies from incoming requests so your app can store user data
+app.use(cookieParser()); //reads cookies from incoming requests so your app can store user data
 
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/subscriptions', subscriptionsRouter);
