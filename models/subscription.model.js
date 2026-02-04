@@ -22,7 +22,7 @@ const subscriptionSchema = new mongoose.Schema({
         type: String,
         enum: ['daily', 'monthly', 'yearly', 'weekly'],
     },
-    catergory: {
+    category: {
         type: String,
         enum: ['entertainment', 'education', 'productivity', 'health', 'sports', 'news', 'lifestyle', 'technology', 'other'],
         required: true,
@@ -64,7 +64,7 @@ const subscriptionSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 //auto calculate renewal date if missing and before  document is saved
-subscriptionSchema.pre('save', function (next) {
+subscriptionSchema.pre('save', function () {
 
     if (!this.renewalDate) {
         const renewalPeriods = {
@@ -81,8 +81,6 @@ subscriptionSchema.pre('save', function (next) {
     if (this.renewalDate < new Date()) {
         this.status = 'expired';
     }
-
-    next();
 })
 
 const Subscription = mongoose.model('Subscription', subscriptionSchema);
