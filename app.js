@@ -6,12 +6,14 @@ import subscriptionsRouter from './routes/subscriptions.routes.js';
 import userRouter from './routes/user.routes.js';
 import connectToDatabase from './database/mongodb.js';
 import errorMiddleware from './middleware/error.middleware.js';
+import arcjetMiddleware from './middleware/arcjet.middleware.js';
 
 const app = express();
 
 app.use(express.json()); //allows the app to handle json data sent in as requests
 app.use(express.urlencoded({ extended: false })); //allows the app to process the form data sent via html forms in a simple form
 app.use(cookieParser()); //reads cookies from incoming requests so your app can store user data
+app.use(arcjetMiddleware) //protects the app from malicious traffic using Arcjet
 
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/subscriptions', subscriptionsRouter);
